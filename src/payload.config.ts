@@ -3,7 +3,7 @@ import sharp from 'sharp'
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
-
+import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
@@ -73,6 +73,7 @@ export default buildConfig({
       },
       token: process.env.BLOB_READ_WRITE_TOKEN,
     }),
+    formBuilderPlugin({}),
   ],
   secret: process.env.PAYLOAD_SECRET,
   sharp,
