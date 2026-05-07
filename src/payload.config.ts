@@ -67,14 +67,12 @@ export default buildConfig({
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
   plugins: [
+    ...plugins,
     vercelBlobStorage({
       collections: {
         media: true,
       },
       token: process.env.BLOB_READ_WRITE_TOKEN,
-    }),
-    formBuilderPlugin({
-      redirectRelationships: ['pages'],
     }),
   ],
   secret: process.env.PAYLOAD_SECRET,
