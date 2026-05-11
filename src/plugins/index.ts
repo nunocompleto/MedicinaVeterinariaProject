@@ -90,6 +90,7 @@ export const plugins: Plugin[] = [
     },
   }),
   vercelBlobStorage({
+    enabled: process.env.NODE_ENV === 'production',
     collections: {
       media: true,
     },

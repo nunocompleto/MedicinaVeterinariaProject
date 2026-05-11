@@ -22,7 +22,7 @@ export const Logo = (props: Props) => {
       loading={loading}
       fetchPriority={priority}
       decoding="async"
-      className={clsx('max-w-[300pt] w-full h-100% bg-white p-1', className)}
+      className={clsx('max-w-[160pt] w-full', className)}
       src="/media/logo-img/logo-fmv-2026.svg"
     />
   )
