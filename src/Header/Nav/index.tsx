@@ -1,12 +1,12 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 import type { Header as HeaderType } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
 import Link from 'next/link'
-import { SearchIcon, Menu, X } from 'lucide-react'
+import { SearchIcon, Menu, X, ChevronDown } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
@@ -14,7 +14,21 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const [searchValue, setSearchValue] = useState('')
+  const [openDropdown, setOpenDropdown] = useState<number | null>(null)
   const router = useRouter()
+  const navRef = useRef<HTMLDivElement>(null)
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(e.target as Node)) {
+        setOpenDropdown(null)
+        setSearchOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -26,12 +40,40 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
   }
 
   return (
-    <div className="flex items-center relative">
+    <div ref={navRef} className="flex items-center relative">
       {/* Desktop nav */}
       <nav className="hidden md:flex gap-3 items-center">
-        {navItems.map(({ link }, i) => (
-          <CMSLink key={i} {...link} appearance="link" />
-        ))}
+        {navItems.map((item, i) => {
+          const hasSubItems = item.subItems && item.subItems.length > 0
+
+          if (!hasSubItems) {
+            return <CMSLink key={i} {...item.link} appearance="link" />
+          }
+
+          return (
+            <div key={i} className="relative">
+              <button
+                className="flex items-center gap-1"
+                onClick={() => setOpenDropdown(openDropdown === i ? null : i)}
+              >
+                <CMSLink {...item.link} appearance="link" />
+                <ChevronDown className={`w-4 h-4 transition-transform ${openDropdown === i ? 'rotate-180' : ''}`} />
+              </button>
+
+              {openDropdown === i && (
+                <div className="absolute top-full left-0 mt-2 min-w-[200px] bg-white/95 dark:bg-black/95 backdrop-blur-sm rounded-2xl p-3 z-50 shadow-lg flex flex-col gap-2">
+                  {item.subItems?.map((sub, j) => (
+                    <CMSLink
+                      key={j}
+                      {...sub.link}
+                      appearance="link"
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          )
+        })}
         <button
           onClick={() => setSearchOpen(!searchOpen)}
           aria-label="Toggle search"
@@ -68,8 +110,17 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
       {/* Mobile menu */}
       {isOpen && (
         <div className="fixed inset-x-0 top-20 mx-auto w-[90%] bg-white/95 dark:bg-black/95 backdrop-blur-sm rounded-2xl p-6 md:hidden flex flex-col items-start gap-4 z-40">
-          {navItems.map(({ link }, i) => (
-            <CMSLink key={i} {...link} appearance="link" />
+          {navItems.map((item, i) => (
+            <div key={i} className="w-full">
+              <CMSLink {...item.link} appearance="link" />
+              {item.subItems && item.subItems.length > 0 && (
+                <div className="flex flex-col gap-2 pl-4 mt-2">
+                  {item.subItems.map((sub, j) => (
+                    <CMSLink key={j} {...sub.link} appearance="link" />
+                  ))}
+                </div>
+              )}
+            </div>
           ))}
           <form onSubmit={handleSearch} className="w-full">
             <input
