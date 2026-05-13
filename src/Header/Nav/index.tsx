@@ -42,32 +42,33 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
   return (
     <div ref={navRef} className="flex items-center relative">
       {/* Desktop nav */}
-      <nav className="hidden md:flex gap-3 items-center">
+      <nav className="hidden md:flex flex-wrap gap-3 items-center">
         {navItems.map((item, i) => {
           const hasSubItems = item.subItems && item.subItems.length > 0
-
+          const linkClass = "px-4 py-2 rounded-full bg-background hover:bg-purple-500 transition-colors"
           if (!hasSubItems) {
-            return <CMSLink key={i} {...item.link} appearance="link" />
+            return <CMSLink key={i} {...item.link} appearance="link" className={linkClass}/>
           }
 
           return (
             <div key={i} className="relative">
               <button
-                className="flex items-center gap-1"
-                onClick={() => setOpenDropdown(openDropdown === i ? null : i)}
-              >
-                <CMSLink {...item.link} appearance="link" />
-                <ChevronDown className={`w-4 h-4 transition-transform ${openDropdown === i ? 'rotate-180' : ''}`} />
+                  className="flex items-center gap-1 px-4 py-2 rounded-full bg-background hover:bg-purple-500 transition-colors"
+                  onClick={() => setOpenDropdown(openDropdown === i ? null : i)}
+                >
+                  <CMSLink {...item.link} appearance="link" />
+                  <ChevronDown className={`w-4 h-4 transition-transform ${openDropdown === i ? 'rotate-180' : ''}`} />
               </button>
 
               {openDropdown === i && (
-                <div className="absolute top-full left-0 mt-2 min-w-[200px] bg-white/95 dark:bg-black/95 backdrop-blur-sm rounded-2xl p-3 z-50 shadow-lg flex flex-col gap-2">
+                <div className="absolute top-full left-0 mt-2 min-w-[200px] bg-white dark:bg-black rounded-2xl p-3 z-50 shadow-lg flex flex-col gap-2">
                   {item.subItems?.map((sub, j) => (
                     <CMSLink
                       key={j}
                       {...sub.link}
                       appearance="link"
-                    />
+                      className="px-3 py-1.5 rounded-full bg-background hover:bg-purple-500 transition-colors"
+                     />
                   ))}
                 </div>
               )}
@@ -78,7 +79,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
           onClick={() => setSearchOpen(!searchOpen)}
           aria-label="Toggle search"
         >
-          <SearchIcon className="w-5 text-foreground" />
+          <SearchIcon className="w-10 h-8 text-foreground p-1 rounded-full bg-background hover:bg-purple-500 transition-colors" />
         </button>
       </nav>
 

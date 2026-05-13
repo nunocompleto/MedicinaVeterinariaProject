@@ -22,8 +22,8 @@ export const Logo = (props: Props) => {
       loading={loading}
       fetchPriority={priority}
       decoding="async"
-      className={clsx('max-w-[160pt] w-full', className)}
-      src="/media/logo-img/logo-fmv-2026.svg"
+      className={clsx('max-w-[200pt] w-auto', className)}
+      src="/media/logo-img/logo-fmv-2026.png"
     />
   )
 }

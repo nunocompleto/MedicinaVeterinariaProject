@@ -211,6 +211,11 @@
   }
   body {
     @apply bg-background text-foreground min-h-[100vh] flex flex-col;
+  background: linear-gradient(to bottom right, #e0f2fe, #fdf4ff);
+  }
+
+  [data-theme='dark'] body {
+    background: linear-gradient(to bottom right, #000000, #1a1a1a);
   }
 }
 

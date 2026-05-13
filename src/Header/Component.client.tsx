@@ -9,6 +9,8 @@ import type { Header } from '@/payload-types'
 import { Logo } from '@/components/Logo/Logo'
 import { HeaderNav } from './Nav'
 
+
+
 interface HeaderClientProps {
   data: Header
 }
@@ -29,12 +31,12 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [headerTheme])
 
-
+  //this had bg-white/40 dark:bg-black/40 backdrop-blur-sm
   //{...(theme ? { 'data-theme': theme } : {})} this was cut from the header classname bellow
   return (
-    <header className="sticky top-0 z-50 bg-white/70 dark:bg-black/80 backdrop-blur-sm w-full justify-center" >
-      <div className="py-1 px-5 flex items-center justify-between container">
-        <Link href="/">
+    <header className="sticky top-0 z-50 w-full bg-transparent backdrop-blur-sm justify-center" > 
+      <div className="py-1 px-5 flex items-center justify-around gap-8 container">
+        <Link href="/incio" className="px-4 py-2 rounded-md bg-background hover:bg-purple-500 transition-colors">
           <Logo loading="eager" priority="high" className="dark:invert-1" />
         </Link>
         <HeaderNav data={data} />
@@ -42,3 +44,16 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
     </header>
   )
 }
+
+// Adding social media icons with links to the header (uncomment the code below and replace YOUR_HANDLE with actual handles)
+ //        <div className="flex items-center gap-1">
+ //           <a href="https://instagram.com/YOUR_HANDLE" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-background hover:bg-blue-500 transition-colors">
+ //              <FaInstagram className="w-5 h-5" />
+ //            </a>
+ //            <a href="https://facebook.com/YOUR_HANDLE" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-background hover:bg-blue-500 transition-colors">
+ //              <FaFacebook className="w-5 h-5" />
+ //            </a>
+ //            <a href="https://linkedin.com/in/YOUR_HANDLE" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-background hover:bg-blue-500 transition-colors">
+ //             <FaLinkedin className="w-5 h-5" />
+ //           </a>
+  //        </div>
