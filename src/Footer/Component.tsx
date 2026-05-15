@@ -17,7 +17,7 @@ export async function Footer() {
         <Link className="flex items-center" href="/incio">
           <Logo />
         </Link>
-        <img src="/media/logo-img/prr-outroslogos.png" alt="FMV Studio Logo" className="w-full max-w-[200pt]" />
+        <img src="/media/logo-img/prr-outroslogos.png" alt="FMV Studio Logo" className="w-auto h-16 max-w-[80%]" />
         <div className="flex flex-col-reverse items-start md:flex-row gap-4 md:items-center">
           <ThemeSelector />
           <nav className="flex flex-col md:flex-row gap-4">
