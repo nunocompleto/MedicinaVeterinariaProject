@@ -45,7 +45,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
       <nav className="hidden md:flex flex-wrap gap-3 items-center">
         {navItems.map((item, i) => {
           const hasSubItems = item.subItems && item.subItems.length > 0
-          const linkClass = "px-4 py-2 rounded-full bg-background hover:bg-purple-500 transition-colors"
+          const linkClass = "hover:text-blue-500 transition-colors"
           if (!hasSubItems) {
             return <CMSLink key={i} {...item.link} appearance="link" className={linkClass}/>
           }
@@ -53,7 +53,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
           return (
             <div key={i} className="relative">
               <button
-                  className="flex items-center gap-1 px-4 py-2 rounded-full bg-background hover:bg-purple-500 transition-colors"
+                  className="flex items-center gap-1 px-4 py-2 hover:text-blue-500 transition-colors"
                   onClick={() => setOpenDropdown(openDropdown === i ? null : i)}
                 >
                   <CMSLink {...item.link} appearance="link" />
@@ -67,7 +67,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
                       key={j}
                       {...sub.link}
                       appearance="link"
-                      className="px-3 py-1.5 rounded-full bg-background hover:bg-purple-500 transition-colors"
+                      className="px-3 py-1.5 rounded-full bg-background hover:bg-blue-500 transition-colors"
                      />
                   ))}
                 </div>
@@ -79,7 +79,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
           onClick={() => setSearchOpen(!searchOpen)}
           aria-label="Toggle search"
         >
-          <SearchIcon className="w-10 h-8 text-foreground p-1 rounded-full bg-background hover:bg-purple-500 transition-colors" />
+          <SearchIcon className="w-10 h-8 text-foreground p-1 hover:text-blue-500 transition-colors" />
         </button>
       </nav>
 
