@@ -17,13 +17,13 @@ export const Logo = (props: Props) => {
     /* eslint-disable @next/next/no-img-element */
     <img
       alt="fmv logo"
-      width={120}
+      width={140}
       height={34}
       loading={loading}
       fetchPriority={priority}
       decoding="async"
-      className={clsx('max-w-[120pt] w-auto', className)}
-      src="/media/logo-img/cvetlogos.png"
+      className={clsx('min-w-[140px] max-w-[200px] md:min-w-[160px] md:max-w-[280px] w-auto', className)}
+      src="/media/logo-img/logo-fmv-2026.png"
     />
   )
 }
