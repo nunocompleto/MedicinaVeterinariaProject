@@ -45,7 +45,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
       <nav className="hidden md:flex flex-wrap gap-3 items-center">
         {navItems.map((item, i) => {
           const hasSubItems = item.subItems && item.subItems.length > 0
-          const linkClass = "hover:text-blue-500 transition-colors"
+          const linkClass = "hover:text-background transition-colors"
           if (!hasSubItems) {
             return <CMSLink key={i} {...item.link} appearance="link" className={linkClass}/>
           }
@@ -53,15 +53,15 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
           return (
             <div key={i} className="relative">
               <button
-                  className="flex items-center gap-1 px-4 py-2 hover:text-blue-500 transition-colors"
+                  className="flex items-center gap-1 px-4 py-2 hover:text-background transition-colors"
                   onClick={() => setOpenDropdown(openDropdown === i ? null : i)}
                 >
-                  <CMSLink {...item.link} appearance="link" />
+                  <CMSLink {...item.link} appearance="!text-inherit" />
                   <ChevronDown className={`w-4 h-4 transition-transform ${openDropdown === i ? 'rotate-180' : ''}`} />
               </button>
 
               {openDropdown === i && (
-                <div className="absolute top-full left-0 mt-2 min-w-[200px] bg-white dark:bg-black rounded-2xl p-3 z-50 shadow-lg flex flex-col gap-2">
+                <div className="absolute top-full left-0 mt-2 min-w-[200px] bg-white dark:bg-black rounded-2xl p-3 z-50 shadow-lg flex flex-col gap-2 ">
                   {item.subItems?.map((sub, j) => (
                     <CMSLink
                       key={j}
@@ -79,7 +79,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
           onClick={() => setSearchOpen(!searchOpen)}
           aria-label="Toggle search"
         >
-          <SearchIcon className="w-10 h-8 text-foreground p-1 hover:text-blue-500 transition-colors" />
+          <SearchIcon className="w-10 h-8 text-foreground p-1 hover:text-background transition-colors" />
         </button>
       </nav>
 
