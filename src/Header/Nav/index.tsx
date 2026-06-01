@@ -56,7 +56,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
                   className="flex items-center gap-1 px-4 py-2 hover:text-background transition-colors"
                   onClick={() => setOpenDropdown(openDropdown === i ? null : i)}
                 >
-                  <CMSLink {...item.link} appearance="text-inherit" />
+                  <CMSLink {...item.link} appearance="link" />
                   <ChevronDown className={`w-4 h-4 transition-transform ${openDropdown === i ? 'rotate-180' : ''}`} />
               </button>
 
