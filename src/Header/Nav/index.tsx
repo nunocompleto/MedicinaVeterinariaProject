@@ -45,7 +45,8 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
       <nav className="hidden md:flex flex-wrap gap-3 items-center">
         {navItems.map((item, i) => {
           const hasSubItems = item.subItems && item.subItems.length > 0
-          const linkClass = "hover:text-background transition-colors"
+          //hover:text-background transition-colors
+          const linkClass = "text-white "
           if (!hasSubItems) {
             return <CMSLink key={i} {...item.link} appearance="link" className={linkClass}/>
           }
@@ -53,10 +54,11 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
           return (
             <div key={i} className="relative">
               <button
-                  className="flex items-center gap-1 px-4 py-2 hover:text-background transition-colors"
+                //hover:text-white-200 transition-colors
+                  className="flex items-center gap-1 px-4 py-2 text-white"
                   onClick={() => setOpenDropdown(openDropdown === i ? null : i)}
                 >
-                  <CMSLink {...item.link} appearance="link" />
+                  <CMSLink {...item.link} appearance="link" className="!text-inherit" />
                   <ChevronDown className={`w-4 h-4 transition-transform ${openDropdown === i ? 'rotate-180' : ''}`} />
               </button>
 

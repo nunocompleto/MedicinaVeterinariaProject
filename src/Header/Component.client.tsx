@@ -35,8 +35,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   //{...(theme ? { 'data-theme': theme } : {})} this was cut from the header classname bellow
   return (
     <header className="top-0 z-50 w-full bg-blue-500 backdrop-blur-sm justify-center" > 
-      <div className="py-1 px-5 flex items-center justify-around gap-8 container">
-        <Link href="/incio" className="px-4 py-2 rounded-md bg-background">
+      <div className=" px-5 flex items-center justify-around gap-8 container">
+        <Link href="/incio" className="px-4 py-2 bg-white">
           <Logo loading="eager" priority="high" className="dark:invert-1" />
         </Link>
         <HeaderNav data={data} />
