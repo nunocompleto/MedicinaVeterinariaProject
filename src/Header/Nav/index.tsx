@@ -81,13 +81,13 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
           onClick={() => setSearchOpen(!searchOpen)}
           aria-label="Toggle search"
         >
-          <SearchIcon className="w-10 h-8 text-foreground p-1 hover:text-background transition-colors" />
+          <SearchIcon className="w-10 h-8 text-background p-1" />
         </button>
       </nav>
 
       {/* Search dropdown */}
       {searchOpen && (
-        <div className="absolute top-full right-0 mt-4 w-80 bg-white/95 dark:bg-black/95 backdrop-blur-sm rounded-2xl p-4 z-50 shadow-lg">
+        <div className="absolute top-full right-0 mt-4 w-80 bg-white/95 dark:bg-black/95 backdrop-blur-sm rounded-s p-4 z-50 shadow-lg">
           <form onSubmit={handleSearch}>
             <input
               type="text"
@@ -95,7 +95,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
               placeholder="Search..."
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
-              className="w-full px-4 py-2 rounded-lg bg-background border border-border text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full px-4 py-2 bg-background border border-border text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
             />
           </form>
         </div>
