@@ -39,16 +39,16 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
       <div className="w-full flex justify-left py-6 px-5">
         <Link href="/">
           <img
-            src="/media/logo-img/cvethublogo.png"
+            src="/media/logo-img/CVETlogotipo.png"
             alt="fmv logo"
             className="h-50 w-auto"
           />
         </Link>
       </div>
 
-      <header className="top-0 z-50 w-full bg-blue-500 backdrop-blur-sm justify-center" > 
+      <header className="top-0 z-50 w-full bg-blue-950 backdrop-blur-sm justify-center" > 
         <div className=" px-5 flex items-center justify-around gap-8 container">
-          <Link href="/incio" className="px-4 py-2 bg-white">
+          <Link href="/incio" className="px-4 py-2 rounded-none bg-gradient-to-r from-white to-blue-100">
             <Logo loading="eager" priority="high" className="dark:invert-1" />
           </Link>
           <HeaderNav data={data} />

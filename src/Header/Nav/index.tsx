@@ -42,11 +42,11 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
   return (
     <div ref={navRef} className="flex items-center relative">
       {/* Desktop nav */}
-      <nav className="hidden md:flex flex-wrap gap-3 items-center">
+      <nav className="hidden md:flex flex-wrap gap-0 items-center">
         {navItems.map((item, i) => {
           const hasSubItems = item.subItems && item.subItems.length > 0
           //hover:text-background transition-colors
-          const linkClass = "text-white "
+          const linkClass = "text-white hover:bg-gradient-to-r from-blue-400 transition-colors px-4 py-5 rounded-none"
           if (!hasSubItems) {
             return <CMSLink key={i} {...item.link} appearance="link" className={linkClass}/>
           }
@@ -55,7 +55,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
             <div key={i} className="relative">
               <button
                 //hover:text-white-200 transition-colors
-                  className="flex items-center gap-1 px-4 py-2 text-white"
+                  className="flex items-center gap-1 px-4 py-5 text-white hover:bg-gradient-to-r from-blue-400 transition-colors "
                   onClick={() => setOpenDropdown(openDropdown === i ? null : i)}
                 >
                   <CMSLink {...item.link} appearance="link" className="!text-inherit" />
@@ -63,13 +63,13 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
               </button>
 
               {openDropdown === i && (
-                <div className="absolute top-full left-0 mt-2 min-w-[200px] bg-white dark:bg-black rounded-2xl p-3 z-50 shadow-lg flex flex-col gap-2 ">
+                <div className="absolute top-full left-0 mt-2 min-w-[200px] bg-blue-950 rounded-none p-1 z-50 shadow-lg flex flex-col gap-0 ">
                   {item.subItems?.map((sub, j) => (
                     <CMSLink
                       key={j}
                       {...sub.link}
                       appearance="link"
-                      className="px-3 py-1.5 rounded-full bg-background hover:text-blue-500 transition-colors"
+                      className="px-full py-1.5 text-white hover:bg-gradient-to-r from-blue-400 transition-colors"
                      />
                   ))}
                 </div>
