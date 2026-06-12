@@ -8,51 +8,42 @@ import { Search } from '@/search/Component'
 import PageClient from './page.client'
 import { CardPostData } from '@/components/Card'
 
+type Locale = 'pt' | 'en'
+
 type Args = {
   searchParams: Promise<{
     q: string
   }>
+  params: Promise<{
+    locale: string
+  }>
 }
-export default async function Page({ searchParams: searchParamsPromise }: Args) {
+
+export default async function Page({ searchParams: searchParamsPromise, params: paramsPromise }: Args) {
   const { q: query } = await searchParamsPromise
+  const { locale } = await paramsPromise
   const payload = await getPayload({ config: configPromise })
 
   const posts = await payload.find({
     collection: 'search',
     depth: 1,
     limit: 12,
+    locale: locale as Locale,
     select: {
       title: true,
       slug: true,
       categories: true,
       meta: true,
     },
-    // pagination: false reduces overhead if you don't need totalDocs
     pagination: false,
     ...(query
       ? {
           where: {
             or: [
-              {
-                title: {
-                  like: query,
-                },
-              },
-              {
-                'meta.description': {
-                  like: query,
-                },
-              },
-              {
-                'meta.title': {
-                  like: query,
-                },
-              },
-              {
-                slug: {
-                  like: query,
-                },
-              },
+              { title: { like: query } },
+              { 'meta.description': { like: query } },
+              { 'meta.title': { like: query } },
+              { slug: { like: query } },
             ],
           },
         }

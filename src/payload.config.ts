@@ -64,6 +64,14 @@ export default buildConfig({
   collections: [Pages, Posts, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
+    localization: {
+    locales: [
+      { label: 'Português', code: 'pt' },
+      { label: 'English', code: 'en' },
+    ],
+    defaultLocale: 'pt',
+    fallback: true,
+  },
   plugins,
   secret: process.env.PAYLOAD_SECRET,
   sharp,

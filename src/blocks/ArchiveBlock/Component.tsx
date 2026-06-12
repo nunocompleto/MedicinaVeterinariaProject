@@ -4,6 +4,7 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
 import RichText from '@/components/RichText'
+import { headers } from 'next/headers'
 
 import { CollectionArchive } from '@/components/CollectionArchive'
 
@@ -15,6 +16,10 @@ export const ArchiveBlock: React.FC<
   const { id, categories, introContent, limit: limitFromProps, populateBy, selectedDocs } = props
 
   const limit = limitFromProps || 3
+
+    // Get locale from URL pathname
+  const headersList = await headers()
+  const locale = (headersList.get('x-locale') || 'pt') as 'pt' | 'en'
 
   let posts: Post[] = []
 
@@ -30,6 +35,7 @@ export const ArchiveBlock: React.FC<
       collection: 'posts',
       depth: 1,
       limit,
+      locale: locale as 'pt' | 'en',
       ...(flattenedCategories && flattenedCategories.length > 0
         ? {
             where: {

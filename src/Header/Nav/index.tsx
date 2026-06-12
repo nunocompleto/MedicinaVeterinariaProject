@@ -7,7 +7,7 @@ import type { Header as HeaderType } from '@/payload-types'
 import { CMSLink } from '@/components/Link'
 import Link from 'next/link'
 import { SearchIcon, Menu, X, ChevronDown } from 'lucide-react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 
 export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
   const navItems = data?.navItems || []
@@ -16,19 +16,27 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
   const [searchValue, setSearchValue] = useState('')
   const [openDropdown, setOpenDropdown] = useState<number | null>(null)
   const router = useRouter()
+  const pathname = usePathname()
   const navRef = useRef<HTMLDivElement>(null)
+  const [langOpen, setLangOpen] = useState(false)
 
+    // Determine current locale and the opposite one
+  const currentLocale = pathname.startsWith('/en') ? 'en' : 'pt'
+  const otherLocale = currentLocale === 'pt' ? 'en' : 'pt'
+  const switchPath = pathname.replace(/^\/(pt|en)/, `/${otherLocale}`)
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (navRef.current && !navRef.current.contains(e.target as Node)) {
         setOpenDropdown(null)
         setSearchOpen(false)
+        setLangOpen(false)
       }
     }
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
+  
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -46,7 +54,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
         {navItems.map((item, i) => {
           const hasSubItems = item.subItems && item.subItems.length > 0
           //hover:text-background transition-colors
-          const linkClass = "text-white hover:bg-gradient-to-r from-blue-400 transition-colors px-4 py-5 rounded-none"
+          const linkClass = "text-white hover:bg-gradient-to-t from-blue-400 transition-colors px-4 py-5 rounded-none"
           if (!hasSubItems) {
             return <CMSLink key={i} {...item.link} appearance="link" className={linkClass}/>
           }
@@ -55,7 +63,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
             <div key={i} className="relative">
               <button
                 //hover:text-white-200 transition-colors
-                  className="flex items-center gap-1 px-4 py-5 text-white hover:bg-gradient-to-r from-blue-400 transition-colors "
+                  className="flex items-center gap-1 px-4 py-5 text-white hover:bg-gradient-to-t from-blue-400 transition-colors "
                   onClick={() => setOpenDropdown(openDropdown === i ? null : i)}
                 >
                   <CMSLink {...item.link} appearance="link" className="!text-inherit" />
@@ -63,13 +71,13 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
               </button>
 
               {openDropdown === i && (
-                <div className="absolute top-full left-0 mt-2 min-w-[200px] bg-blue-950 rounded-none p-1 z-50 shadow-lg flex flex-col gap-0 ">
+                <div className="absolute top-full left-0 mt-0 min-w-[200px] bg-blue-950 rounded-none p-0 z-50 shadow-lg flex flex-col gap-0 ">
                   {item.subItems?.map((sub, j) => (
                     <CMSLink
                       key={j}
                       {...sub.link}
                       appearance="link"
-                      className="px-full py-1.5 text-white hover:bg-gradient-to-r from-blue-400 transition-colors"
+                      className="px-full py-2 text-white rounded-none hover:bg-gradient-to-t from-blue-400 transition-colors"
                      />
                   ))}
                 </div>
@@ -77,6 +85,37 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
             </div>
           )
         })}
+        {/* Language switcher dropdown */}
+        <div className="relative">
+          <button
+            onClick={() => setLangOpen(!langOpen)}
+            className="flex items-center gap-1 px-4 py-5 text-white hover:bg-gradient-to-t from-blue-400 transition-colors uppercase font-medium"
+          >
+            {currentLocale}
+            <ChevronDown className={`w-4 h-4 transition-transform ${langOpen ? 'rotate-180' : ''}`} />
+          </button>
+
+          {langOpen && (
+            <div className="absolute top-full right-0 mt-0 min-w-[100px] bg-blue-950 z-50 shadow-lg flex flex-col">
+              <Link
+                href={pathname.replace(/^\/(pt|en)/, '/pt')}
+                className="px-4 py-2 text-white hover:bg-gradient-to-t from-blue-400 transition-colors uppercase"
+                onClick={() => setLangOpen(false)}
+              >
+                PT
+              </Link>
+              <Link
+                href={pathname.replace(/^\/(pt|en)/, '/en')}
+                className="px-4 py-2 text-white hover:bg-gradient-to-t from-blue-400 transition-colors uppercase"
+                onClick={() => setLangOpen(false)}
+              >
+                EN
+              </Link>
+            </div>
+          )}
+        </div>
+
+
         <button
           onClick={() => setSearchOpen(!searchOpen)}
           aria-label="Toggle search"

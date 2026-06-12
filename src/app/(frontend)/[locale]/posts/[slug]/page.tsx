@@ -15,6 +15,8 @@ import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 
+type Locale = 'pt' | 'en'
+
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
   const posts = await payload.find({
@@ -28,8 +30,11 @@ export async function generateStaticParams() {
     },
   })
 
-  const params = posts.docs.map(({ slug }) => {
-    return { slug }
+  const params = posts.docs.flatMap(({ slug }) => {
+    return [
+      { locale: 'pt', slug },
+      { locale: 'en', slug },
+    ]
   })
 
   return params
@@ -38,24 +43,22 @@ export async function generateStaticParams() {
 type Args = {
   params: Promise<{
     slug?: string
+    locale: string
   }>
 }
 
 export default async function Post({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
-  const { slug = '' } = await paramsPromise
-  // Decode to support slugs with special characters
+  const { slug = '', locale } = await paramsPromise
   const decodedSlug = decodeURIComponent(slug)
   const url = '/posts/' + decodedSlug
-  const post = await queryPostBySlug({ slug: decodedSlug })
+  const post = await queryPostBySlug({ slug: decodedSlug, locale: locale as Locale })
 
   if (!post) return <PayloadRedirects url={url} />
 
   return (
     <article className="pt-16 pb-16">
       <PageClient />
-
-      {/* Allows redirects for valid pages too */}
       <PayloadRedirects disableNotFound url={url} />
 
       {draft && <LivePreviewListener />}
@@ -78,15 +81,14 @@ export default async function Post({ params: paramsPromise }: Args) {
 }
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
-  const { slug = '' } = await paramsPromise
-  // Decode to support slugs with special characters
+  const { slug = '', locale } = await paramsPromise
   const decodedSlug = decodeURIComponent(slug)
-  const post = await queryPostBySlug({ slug: decodedSlug })
+  const post = await queryPostBySlug({ slug: decodedSlug, locale: locale as Locale })
 
   return generateMeta({ doc: post })
 }
 
-const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
+const queryPostBySlug = cache(async ({ slug, locale }: { slug: string; locale: Locale }) => {
   const { isEnabled: draft } = await draftMode()
 
   const payload = await getPayload({ config: configPromise })
@@ -97,6 +99,7 @@ const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
     limit: 1,
     overrideAccess: draft,
     pagination: false,
+    locale,
     where: {
       slug: {
         equals: slug,
