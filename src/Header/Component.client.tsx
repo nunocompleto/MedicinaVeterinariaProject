@@ -39,7 +39,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
       <div className="w-full flex justify-left py-6 px-5">
         <Link href="/">
           <img
-            src="/media/logo-img/CVETlogotipo.png"
+            src="/media/logo-img/Logo cvethub.png"
             alt="fmv logo"
             className="h-50 w-auto"
           />
