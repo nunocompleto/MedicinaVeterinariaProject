@@ -15,22 +15,10 @@ const columnFields: Field[] = [
     type: 'select',
     defaultValue: 'oneThird',
     options: [
-      {
-        label: 'One Third',
-        value: 'oneThird',
-      },
-      {
-        label: 'Half',
-        value: 'half',
-      },
-      {
-        label: 'Two Thirds',
-        value: 'twoThirds',
-      },
-      {
-        label: 'Full',
-        value: 'full',
-      },
+      { label: 'One Third', value: 'oneThird' },
+      { label: 'Half', value: 'half' },
+      { label: 'Two Thirds', value: 'twoThirds' },
+      { label: 'Full', value: 'full' },
     ],
   },
   {
@@ -52,15 +40,16 @@ const columnFields: Field[] = [
     name: 'enableLink',
     type: 'checkbox',
   },
-  link({
-    overrides: {
-      admin: {
-        condition: (_data, siblingData) => {
-          return Boolean(siblingData?.enableLink)
-        },
-      },
+  {
+    name: 'links',
+    type: 'array',
+    admin: {
+      condition: (_data, siblingData) => Boolean(siblingData?.enableLink),
     },
-  }),
+    fields: [
+      link({}),
+    ],
+  },
 ]
 
 export const Content: Block = {
@@ -70,9 +59,7 @@ export const Content: Block = {
     {
       name: 'columns',
       type: 'array',
-      admin: {
-        initCollapsed: true,
-      },
+      admin: { initCollapsed: true },
       fields: columnFields,
     },
   ],

@@ -22,7 +22,7 @@ export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
         {columns &&
           columns.length > 0 &&
           columns.map((col, index) => {
-            const { enableLink, link, richText, size } = col
+            const { enableLink, links, richText, size } = col
 
             return (
               <div
@@ -33,7 +33,15 @@ export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
               >
                 {richText && <RichText data={richText} enableGutter={false} />}
 
-                {enableLink && <CMSLink {...link} />}
+                {enableLink && links && links.length > 0 && (
+                  <ul className="flex flex-col gap-4 mt-4">
+                    {links.map(({ link }, i) => (
+                      <li key={i}>
+                        <CMSLink {...link} />
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
             )
           })}
