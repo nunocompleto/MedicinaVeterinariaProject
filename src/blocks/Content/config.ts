@@ -37,6 +37,17 @@ const columnFields: Field[] = [
     label: false,
   },
   {
+    name: 'featuredPosts',
+    type: 'relationship',
+    relationTo: 'posts',
+    hasMany: true,
+    admin: {
+      description: 'Select posts to display below the content',
+    },
+  },
+
+
+  {
     name: 'enableLink',
     type: 'checkbox',
   },

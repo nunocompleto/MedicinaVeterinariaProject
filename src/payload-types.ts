@@ -200,6 +200,10 @@ export interface Page {
         }[]
       | null;
     media?: (number | null) | Media;
+    /**
+     * Select up to 3 posts to feature in the hero corner
+     */
+    featuredPosts?: (number | Post)[] | null;
   };
   layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
   meta?: {
@@ -510,6 +514,10 @@ export interface ContentBlock {
           };
           [k: string]: unknown;
         } | null;
+        /**
+         * Select posts to display below the content
+         */
+        featuredPosts?: (number | Post)[] | null;
         enableLink?: boolean | null;
         links?:
           | {
@@ -1085,6 +1093,7 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
             };
         media?: T;
+        featuredPosts?: T;
       };
   layout?:
     | T
@@ -1143,6 +1152,7 @@ export interface ContentBlockSelect<T extends boolean = true> {
     | {
         size?: T;
         richText?: T;
+        featuredPosts?: T;
         enableLink?: T;
         links?:
           | T

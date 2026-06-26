@@ -19,22 +19,10 @@ export const hero: Field = {
       defaultValue: 'lowImpact',
       label: 'Type',
       options: [
-        {
-          label: 'None',
-          value: 'none',
-        },
-        {
-          label: 'High Impact',
-          value: 'highImpact',
-        },
-        {
-          label: 'Medium Impact',
-          value: 'mediumImpact',
-        },
-        {
-          label: 'Low Impact',
-          value: 'lowImpact',
-        },
+        { label: 'None', value: 'none' },
+        { label: 'High Impact', value: 'highImpact' },
+        { label: 'Medium Impact', value: 'mediumImpact' },
+        { label: 'Low Impact', value: 'lowImpact' },
       ],
       required: true,
     },
@@ -66,6 +54,17 @@ export const hero: Field = {
       },
       relationTo: 'media',
       required: true,
+    },
+    {
+      name: 'featuredPosts',
+      type: 'relationship',
+      relationTo: 'posts',
+      hasMany: true,
+      maxRows: 3,
+      admin: {
+        condition: (_, { type } = {}) => type === 'highImpact',
+        description: 'Select up to 3 posts to feature in the hero corner',
+      },
     },
   ],
   label: false,

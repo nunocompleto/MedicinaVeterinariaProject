@@ -35,20 +35,11 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   //{...(theme ? { 'data-theme': theme } : {})} this was cut from the header classname bellow
   return (
     <>
-      {/* Top banner with big logo */}
-      <div className="w-full flex justify-left py-6 px-5">
-        <Link href="/">
-          <img
-            src="/media/logo-img/Logo cvethub.png"
-            alt="fmv logo"
-            className="h-50 w-auto"
-          />
-        </Link>
-      </div>
+      
 
-      <header className="top-0 z-50 w-full bg-blue-950 backdrop-blur-sm justify-center" > 
+      <header className="top-0 z-50 w-full bg-transparent justify-center" > 
         <div className=" px-5 flex items-center justify-around gap-8 container">
-          <Link href="/incio" className="px-4 py-2 rounded-none bg-gradient-to-r from-white to-blue-100">
+          <Link href="/incio" className="px-4 py-2 rounded-none bg-none">
             <Logo loading="eager" priority="high" className="dark:invert-1" />
           </Link>
           <HeaderNav data={data} />
@@ -70,3 +61,14 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
  //             <FaLinkedin className="w-5 h-5" />
  //           </a>
   //        </div>
+
+  {/* Top banner with big logo */}
+    //  <div className="w-full flex justify-left py-6 px-5">
+    //    <Link href="/">
+    //      <img
+    //        src="/media/logo-img/Logo cvethub.png"
+     //       alt="fmv logo"
+    //        className="h-50 w-auto"
+    //      />
+   //     </Link>
+   //   </div>
