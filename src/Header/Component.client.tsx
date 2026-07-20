@@ -37,7 +37,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
     <>
       
 
-      <header className="top-0 z-50 w-full bg-transparent justify-center" > 
+      <header className="top-0 z-50 w-full bg-gradient-to-b from-black to-transparent justify-center" > 
         <div className=" px-5 flex items-center justify-around gap-8 container">
           <Link href="/incio" className="px-4 py-2 rounded-none bg-none">
             <Logo loading="eager" priority="high" className="dark:invert-1" />

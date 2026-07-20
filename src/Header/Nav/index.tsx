@@ -50,7 +50,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
   return (
     <div ref={navRef} className="flex items-center relative">
       {/* Desktop nav */}
-      <nav className="hidden md:flex flex-wrap gap-0 items-center">
+      <nav className="hidden md:flex flex-wrap gap-0 items-center rounded-none">
         {navItems.map((item, i) => {
           const hasSubItems = item.subItems && item.subItems.length > 0
           //hover:text-background transition-colors
