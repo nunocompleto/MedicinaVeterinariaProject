@@ -205,7 +205,7 @@ export interface Page {
      */
     featuredPosts?: (number | Post)[] | null;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
+  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | YouTubeVideoBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -796,6 +796,23 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "YouTubeVideoBlock".
+ */
+export interface YouTubeVideoBlock {
+  /**
+   * Paste the YouTube video URL (e.g., https://www.youtube.com/watch?v=XXXXX)
+   */
+  videoUrl: string;
+  /**
+   * Optional title shown above the video
+   */
+  title?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'youTubeVideo';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1103,6 +1120,7 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        youTubeVideo?: T | YouTubeVideoBlockSelect<T>;
       };
   meta?:
     | T
@@ -1205,6 +1223,16 @@ export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
   enableIntro?: T;
   introContent?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "YouTubeVideoBlock_select".
+ */
+export interface YouTubeVideoBlockSelect<T extends boolean = true> {
+  videoUrl?: T;
+  title?: T;
   id?: T;
   blockName?: T;
 }
