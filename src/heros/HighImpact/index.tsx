@@ -40,7 +40,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText,
 
       {/* Featured posts in bottom-right corner */}
       {posts.length > 0 && (
-        <div className="absolute bottom-8 right-8 z-20 flex flex-col gap-3 w-80 md:w-96">
+        <div className="absolute bottom-8 right-8 z-20 flex flex-col gap-3 w-56 md:w-64">
           {posts.map((post, i) => {
             const metaImage = post.meta?.image
             const publishedAt = post.publishedAt ? new Date(post.publishedAt).toLocaleDateString() : null
