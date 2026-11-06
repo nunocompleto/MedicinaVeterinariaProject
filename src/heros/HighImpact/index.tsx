@@ -55,7 +55,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText,
                 {metaImage && typeof metaImage === 'object' && (
                   <Media fill imgClassName="object-cover" resource={metaImage} />
                 )}
-                <div className="absolute inset-0 flex flex-col justify-end p-4">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-transparent flex flex-col justify-end p-4">
                   <h4 className="text-lg font-bold text-white leading-tight mb-1">{post.title}</h4>
                   <div className="flex gap-2 text-xs text-gray-200">
                     {publishedAt && <span>{publishedAt}</span>}
